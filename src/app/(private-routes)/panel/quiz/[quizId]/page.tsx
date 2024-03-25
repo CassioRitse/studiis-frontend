@@ -13,13 +13,16 @@ export default function QuizPage({ params }: { params: { quizId: string } }) {
   async function getData() {
     const session = await getSession()
 
-    const resp = await fetch(`http://localhost:3030/quiz/${params.quizId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session?.user.token}`,
+    const resp = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL_API}/${params.quizId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user.token}`,
+        },
       },
-    })
+    )
 
     const data: Quiz = await resp.json()
 

@@ -33,13 +33,16 @@ export default function QuestionPage({
   useEffect(() => {
     async function fectchData() {
       const session = await getSession()
-      const resp = await fetch(`http://localhost:3030/quiz/${params.quizId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.user.token}`,
+      const resp = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_API}/${params.quizId}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session?.user.token}`,
+          },
         },
-      })
+      )
       const data: Quiz = await resp.json()
 
       console.log(data)
@@ -58,13 +61,16 @@ export default function QuestionPage({
     }
     const body = JSON.stringify({ questionId: currentQuestion.id, answerId })
     console.log({ questionId: currentQuestion.id, answerId })
-    const resp = await fetch('http://localhost:3030/question/response', {
-      body,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const resp = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL_API}/question/response`,
+      {
+        body,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    })
+    )
 
     const data: FeedbackQuestion = await resp.json()
 
@@ -95,7 +101,7 @@ export default function QuestionPage({
       responses: questionsAnswered,
     })
 
-    await fetch('http://localhost:3030/quiz/answer', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/quiz/answer`, {
       body,
       method: 'POST',
       headers: {
