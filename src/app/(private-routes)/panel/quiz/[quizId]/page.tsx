@@ -14,7 +14,7 @@ export default function QuizPage({ params }: { params: { quizId: string } }) {
     const session = await getSession()
 
     const resp = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL_API}/${params.quizId}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL_API}/quiz/${params.quizId}`,
       {
         method: 'GET',
         headers: {
