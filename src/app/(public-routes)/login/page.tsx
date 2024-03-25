@@ -15,7 +15,7 @@ type SigninForm = {
 export default function Login() {
   const { register, handleSubmit } = useForm<SigninForm>()
 
-  const { replace } = useRouter()
+  const { push } = useRouter()
 
   async function onSumbit(data: SigninForm) {
     console.log(data)
@@ -35,7 +35,7 @@ export default function Login() {
     }
 
     toast.success('Bem vindo de volta!')
-    replace('/panel')
+    push('/panel')
   }
 
   return (
